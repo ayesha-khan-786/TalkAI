@@ -1,5 +1,6 @@
 import express from "express";
 import Thread from "../models/Thread.js";
+import getGroqAIAPIResponse from "../utils/groqai.js";
 
 const router = express.Router();
 
@@ -66,6 +67,45 @@ router.delete("/thread/:threadId", async(req, res) => {
     }catch(err) {
         console.log(err);
         res.status(500).json({error: "Failed to delete thread"});
+    }
+});
+
+// POST - /chat -> new msg in old threadId
+router.post("/chat", async(req, res) => {
+    const {threadId, message} = req.body;
+
+    // Step 1 -> Validate
+    if(!threadId || !message) {
+        res.status(400).json({error: "Missing required fields"});
+    }
+    
+    try {
+        const thread = await Thread.findOne({threadId});
+       
+        // Step 2 -> create a new thread in DB if not exists
+        if(!thread) {
+           
+            thread = new Thread({
+                threadId,
+                title: message,
+                messages: [{role: "user", content: message}]
+            });
+        } else {
+            thread.messages.push({role: "user", content: message});
+        }
+
+        // Step 3 -> Ask assistant reply from GroqAI
+        const assistantReply = await getGroqAIAPIResponse(message);
+
+        thread.messages.push({role: "assistant", content: assistantReply});     // store new rply in DB
+        thread.updatedAt = new Date();
+        
+        await thread.save();
+        res.json({reply: assistantReply});          // display all msgs on frontend
+    
+    } catch(err) {
+        console.log(err);
+        res.status(500).json({error: "Something went wrong"});
     }
 });
 
