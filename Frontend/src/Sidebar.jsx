@@ -5,21 +5,21 @@ function Sidebar() {
         <section className="sidebar">
            {/* new chat button */}
            <button>
-                <img src="src/assets/abstract.png" alt="talkAi logo"></img>
-                <i className="fa-solid fa-pen-to-square"></i>
+                <img src="src/assets/logo4.png" alt="talkAi logo" className="logo"></img>
+                <span><i className="fa-solid fa-pen-to-square"></i></span>
            </button>
           
            {/* History */}
            <ul className="history">
-                <li>History1</li>
-                <li>History2</li>
-                <li>History3</li>
-                <li>History4</li>
+                <li>Logo design help</li>
+                <li>Write Linkedin post</li>
+                <li>Bangladesh problems points image</li>
+                <li>PPt on bangladesh issues</li>
            </ul>
            
            {/* Sign */}
            <div className="sign">
-                <p>By Aisha Khan &hearts;</p>
+                <p>Crafted with <span style={{color: "red"}}>&hearts;</span> by Ayesha Khan</p>
            </div>
         </section>
      );
