@@ -1,8 +1,27 @@
 import "./Chat.css";
+import { useContext } from "react";
+import { MyContext } from "./MyContext";
 
 function Chat() {
+
+    const {newChat, prevChats} = useContext(MyContext); 
     return ( 
-        <></>
+        <>
+            {newChat && <h1>Ask Anything, Learn Everything!</h1>}
+            <div className="chats">
+                <div className="userDiv">
+                    <p className="userMessage">
+                        User Message
+                    </p>
+                </div>
+                
+                <div className="aiDiv">
+                    <p className="aiMessage">
+                        Ai generated Message
+                    </p>
+                </div>
+            </div>
+        </>
      );
 }
 
