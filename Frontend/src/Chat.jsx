@@ -9,6 +9,19 @@ function Chat() {
         <>
             {newChat && <h1>Ask Anything, Learn Everything!</h1>}
             <div className="chats">
+                {
+                    prevChats ?.map((chat, idx) => 
+                        <div className={chat.role === "user" ? "userDiv" : "aiDiv"} key={idx}>
+                            {
+                                chat.role === "user"? 
+                                <p className="userMessage">{chat.content}</p> : 
+                                <p className="aiMessage">{chat.content}</p>
+                            }
+                        </div>
+                    )
+                }
+
+{/* 
                 <div className="userDiv">
                     <p className="userMessage">
                         User Message
@@ -19,7 +32,7 @@ function Chat() {
                     <p className="aiMessage">
                         Ai generated Message
                     </p>
-                </div>
+                </div>              */}
             </div>
         </>
      );

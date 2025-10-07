@@ -1,12 +1,12 @@
 import "./ChatWindow.css";
 import Chat from "./Chat.jsx";
 import { MyContext } from "./MyContext.jsx";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import {RingLoader} from "react-spinners";
 
 function ChatWindow() {
 
-    const {prompt, setPrompt, reply, setReply, currThreadId} = useContext(MyContext);
+    const {prompt, setPrompt, reply, setReply, currThreadId, prevChats, setPrevChats} = useContext(MyContext);
     const [loading, setLoading] = useState(false);
 
     const getReply = async () => {
@@ -33,6 +33,24 @@ function ChatWindow() {
         }
         setLoading(false);
     }
+
+    // Append new chat to previous chats
+    useEffect(() => {
+        if(prompt && reply) {
+            setPrevChats(prevChats => (
+                [...prevChats, {
+                    role: "user",
+                    content: prompt
+                }, {
+                    role: "assistant",
+                    content: reply
+                }]
+            ))
+        }
+
+        setPrompt("");
+    }, [reply]);
+
    
     return ( 
         <div className="chatWindow">
