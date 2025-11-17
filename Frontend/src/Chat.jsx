@@ -1,6 +1,11 @@
 import "./Chat.css";
 import { useContext } from "react";
 import { MyContext } from "./MyContext";
+import ReactMarkdown from "react-markdown";
+import rehypeHightlight from "rehype-highlight";
+
+// react-markdown => display info in proper format
+// rehype-highlight => used for code syntax hightlight
 
 function Chat() {
 
@@ -15,7 +20,7 @@ function Chat() {
                             {
                                 chat.role === "user"? 
                                 <p className="userMessage">{chat.content}</p> : 
-                                <p className="aiMessage">{chat.content}</p>
+                                <ReactMarkdown rehypePlugins={rehypeHightlight}>{chat.content}</ReactMarkdown>
                             }
                         </div>
                     )
