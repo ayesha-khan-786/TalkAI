@@ -15,12 +15,12 @@ function Chat() {
             {newChat && <h1>Ask Anything, Learn Everything!</h1>}
             <div className="chats">
                 {
-                    prevChats ?.map((chat, idx) => 
+                    prevChats?.map((chat, idx) => 
                         <div className={chat.role === "user" ? "userDiv" : "aiDiv"} key={idx}>
                             {
                                 chat.role === "user"? 
                                 <p className="userMessage">{chat.content}</p> : 
-                                <ReactMarkdown rehypePlugins={rehypeHightlight}>{chat.content}</ReactMarkdown>
+                                <p className="aiMessage">{chat.content}</p> 
                             }
                         </div>
                     )
@@ -40,7 +40,7 @@ function Chat() {
                 </div>              */}
             </div>
         </>
-     );
+     )
 }
 
 export default Chat;
