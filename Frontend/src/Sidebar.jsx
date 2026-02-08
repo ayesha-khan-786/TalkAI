@@ -1,6 +1,31 @@
 import "./Sidebar.css";
+import { useContext, useEffect } from "react";
+import { MyContext } from "./MyContext.jsx";
 
 function Sidebar() {
+     const {allThreads, setAllThreads, currThreadId} = useContext(MyContext);
+
+     const getAllThreads = async () => {
+
+          try {
+               const response = await fetch("http://localhost:8080/api/thread");
+               const res = await response.json();
+               const filteredData = res.map(thread => ({         // Store thread id & title
+                    threadId: thread.threadId,
+                    title: thread.title}))
+               console.log(filteredData);
+               setAllThreads(filteredData);
+          } catch(err) {
+               console.log(err);
+          }
+          
+     };
+
+     useEffect(() => {
+          getAllThreads();
+     }, [currThreadId])
+
+
     return ( 
         <section className="sidebar">
            {/* new chat button */}
@@ -11,10 +36,11 @@ function Sidebar() {
           
            {/* History */}
            <ul className="history">
-                <li>Logo design help</li>
-                <li>Write Linkedin post</li>
-                <li>Bangladesh problems points image</li>
-                <li>PPt on bangladesh issues</li>
+               {
+                    allThreads?.map((thread, idx) => (
+                         <li key={idx}>{thread.title}</li>
+                    ))
+               }
            </ul>
            
            {/* Sign */}

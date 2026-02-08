@@ -4,6 +4,19 @@
     padding: 8rem;
 }
 
+.chats::-webkit-scrollbar {
+    width: 8px;
+}
+
+.chats::-webkit-scrollbar-thumb {
+    background-color: #323232;
+    border-radius: 10px;
+}
+
+.chats::-webkit-scrollbar-track {
+    background: transparent;
+}
+
 .userDiv {
     display: flex;
     justify-content: flex-end;
@@ -26,4 +39,12 @@
 
 .aiMessage {
     text-align: left;
+}
+
+.hljs {
+    border-radius: 14px !important; 
+}
+
+pre {
+    white-space: pre-wrap;
 }
