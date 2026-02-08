@@ -1,9 +1,10 @@
 import "./Sidebar.css";
 import { useContext, useEffect } from "react";
 import { MyContext } from "./MyContext.jsx";
+import {v1 as uuidv1} from "uuid";
 
 function Sidebar() {
-     const {allThreads, setAllThreads, currThreadId} = useContext(MyContext);
+     const {allThreads, setAllThreads, currThreadId, setNewChat, setPrompt, setReply, setCurrThreadId, setPrevChats} = useContext(MyContext);
 
      const getAllThreads = async () => {
 
@@ -25,11 +26,18 @@ function Sidebar() {
           getAllThreads();
      }, [currThreadId])
 
+     const createNewChat = () => {
+          setNewChat(true);
+          setPrompt(" ");
+          setReply(null);
+          setCurrThreadId(uuidv1());
+          setPrevChats([]);
+     }
 
     return ( 
         <section className="sidebar">
            {/* new chat button */}
-           <button>
+           <button onClick={createNewChat}>
                 <img src="src/assets/logo4.png" alt="talkAi logo" className="logo"></img>
                 <span><i className="fa-solid fa-pen-to-square"></i></span>
            </button>
