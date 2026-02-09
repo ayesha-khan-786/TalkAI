@@ -14,6 +14,11 @@ function Chat() {
     const [latestReply, setLatestReply] = useState(null); 
     
     useEffect(() => {
+        if(reply === null) {
+            setLatestReply(null);       // i.e loading previous chats
+            return;
+        }
+
         // latestReply separate => create typing effect
         if(!prevChats?.length) return;
 
@@ -49,13 +54,23 @@ function Chat() {
                         </div>
                     )
                 }
-    {/* To Print latest Reply */}
+
                 {
-                    prevChats.length > 0 && latestReply !== null &&
-                    <div className="aiMessage" key={"typing"}>
-                        <ReactMarkdown rehypePlugins={[rehypeHightlight]}>{latestReply}</ReactMarkdown>
-                    </div>
-                    
+                    prevChats.length > 0 && (
+                        <>
+                            {
+                                latestReply === null ? (
+                                     <div className="aiMessage" key={"non-typing"}>     {/* To print previous all chats */}
+                                        <ReactMarkdown rehypePlugins={[rehypeHightlight]}>{prevChats[prevChats.length-1].content}</ReactMarkdown>
+                                    </div>
+                                ) : (
+                                    <div className="aiMessage" key={"typing"}>          {/* To Print latest Reply */}
+                                        <ReactMarkdown rehypePlugins={[rehypeHightlight]}>{latestReply}</ReactMarkdown>
+                                    </div>
+                                )
+                            }
+                        </>
+                    )
                 }
 
             </div>

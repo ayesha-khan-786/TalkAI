@@ -1,5 +1,5 @@
 import "./Sidebar.css";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { MyContext } from "./MyContext.jsx";
 import {v1 as uuidv1} from "uuid";
 
@@ -14,7 +14,7 @@ function Sidebar() {
                const filteredData = res.map(thread => ({         // Store thread id & title
                     threadId: thread.threadId,
                     title: thread.title}))
-               console.log(filteredData);
+               //console.log(filteredData);
                setAllThreads(filteredData);
           } catch(err) {
                console.log(err);
@@ -34,6 +34,21 @@ function Sidebar() {
           setPrevChats([]);
      }
 
+     const changeThread = async (newThreadId) => {      // Fetch data from DB
+          setCurrThreadId(newThreadId);
+
+          try {
+               const response = await fetch(`http://localhost:8080/api/thread/${newThreadId}`);
+               const res = await response.json();
+               console.log(res);
+               setPrevChats(res);
+               setNewChat(false);
+               setReply(null);
+          } catch(err) {
+               console.log(err);
+          }
+     }
+
     return ( 
         <section className="sidebar">
            {/* new chat button */}
@@ -46,7 +61,10 @@ function Sidebar() {
            <ul className="history">
                {
                     allThreads?.map((thread, idx) => (
-                         <li key={idx}>{thread.title}</li>
+                         <li key={idx}
+                              onClick={(e) => changeThread(thread.threadId)}        // Display chat in Thread
+                         >
+                              {thread.title}</li>
                     ))
                }
            </ul>
