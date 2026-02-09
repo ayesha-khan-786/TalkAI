@@ -34,7 +34,7 @@ router.get("/thread", async(req, res) => {
 });
 
 // Route to send the info of a particular thread based on threadId
-router.get("/thread/threadId", async(req, res) => {
+router.get("/thread/:threadId", async(req, res) => {
     const {threadId} = req.params;
     
     try {
