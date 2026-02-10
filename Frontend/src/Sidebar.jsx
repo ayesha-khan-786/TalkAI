@@ -80,6 +80,7 @@ function Sidebar() {
                     allThreads?.map((thread, idx) => (
                          <li key={idx}
                               onClick={(e) => changeThread(thread.threadId)}        // Display chat in Thread
+                              className={thread.threadId === currThreadId ? "highlighted" : " "}
                          >
                               {thread.title}
                               <i className="fa-solid fa-trash"
