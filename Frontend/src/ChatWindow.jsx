@@ -2,7 +2,7 @@ import "./ChatWindow.css";
 import Chat from "./Chat.jsx";
 import { MyContext } from "./MyContext.jsx";
 import { useContext, useState, useEffect } from "react";
-import {RingLoader} from "react-spinners";
+import {PropagateLoader} from "react-spinners";
 
 function ChatWindow() {
 
@@ -79,8 +79,8 @@ function ChatWindow() {
             
             <Chat></Chat>
 
-            <RingLoader color="#359e9dff" loading={loading}>
-            </RingLoader>
+            <PropagateLoader color="#359e9dff" loading={loading}>
+            </PropagateLoader>
            
             <div className="chatInput">
                 <div className="inputBox">
