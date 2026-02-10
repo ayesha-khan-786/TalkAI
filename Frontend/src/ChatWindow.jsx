@@ -6,11 +6,13 @@ import {RingLoader} from "react-spinners";
 
 function ChatWindow() {
 
-    const {prompt, setPrompt, reply, setReply, currThreadId, prevChats, setPrevChats} = useContext(MyContext);
+    const {prompt, setPrompt, reply, setReply, currThreadId, prevChats, setPrevChats, setNewChat} = useContext(MyContext);
     const [loading, setLoading] = useState(false);
 
     const getReply = async () => {
         setLoading(true);
+        setNewChat(false);
+
         console.log("message", prompt, " threadId ", currThreadId);
         const options = {
             method: "POST",

@@ -68,3 +68,18 @@ button:hover {
     background-color: rgba(132, 237, 226, 0.05);
     cursor: pointer;
 }
+
+.fa-trash {
+    opacity: 0;
+    position: absolute;
+    right: 0;
+}
+
+.history li:hover .fa-trash {
+    opacity: 1;
+    color: #fff;
+}
+
+.fa-trash:hover {
+    color: #f87171 !important;
+}
