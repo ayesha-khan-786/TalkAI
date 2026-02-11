@@ -3,14 +3,19 @@ import "dotenv/config";
 import cors from "cors";
 import mongoose from "mongoose";
 import chatRoutes from "./routes/chat.js";
+import authRoutes from "./routes/auth.js";
+
 
 const app = express();
 const PORT = 8080;
 
+// Middleware
 app.use(express.json());
 app.use(cors());
 
+// Routes
 app.use("/api", chatRoutes);
+app.use("/api/auth", authRoutes);
 
 app.listen(PORT, () => {
   console.log(`server running on ${PORT}`);
@@ -25,6 +30,8 @@ const connectDB = async() => {
     console.log("Failed to connect with DB",err);
   }
 }
+
+
 
 /* 
 app.post("/test", async (req, res) => {

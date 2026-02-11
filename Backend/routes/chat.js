@@ -1,11 +1,12 @@
 import express from "express";
 import Thread from "../models/Thread.js";
 import getGroqAIAPIResponse from "../utils/groqai.js";
+import authMiddleware from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
 // test
-router.post("/test", async(req, res) => {
+router.post("/test",authMiddleware, async(req, res) => {
     try {
         const thread = new Thread({
             threadId: "abc",
@@ -22,7 +23,7 @@ router.post("/test", async(req, res) => {
 });
 
 // Get all threads
-router.get("/thread", async(req, res) => {
+router.get("/thread",authMiddleware, async(req, res) => {
     try {
         const threads = await Thread.find({}).sort({updatedAt: -1});
         // decreasing order of updatedAt i.e most recent data at top
@@ -34,7 +35,7 @@ router.get("/thread", async(req, res) => {
 });
 
 // Route to send the info of a particular thread based on threadId
-router.get("/thread/:threadId", async(req, res) => {
+router.get("/thread/:threadId",authMiddleware, async(req, res) => {
     const {threadId} = req.params;
     
     try {
@@ -52,7 +53,7 @@ router.get("/thread/:threadId", async(req, res) => {
 });
 
 // delete
-router.delete("/thread/:threadId", async(req, res) => {
+router.delete("/thread/:threadId",authMiddleware, async(req, res) => {
     const {threadId} = req.params;
 
     try {
@@ -71,12 +72,12 @@ router.delete("/thread/:threadId", async(req, res) => {
 });
 
 // POST - /chat -> new msg in old threadId
-router.post("/chat", async(req, res) => {
+router.post("/chat",authMiddleware, async(req, res) => {
     const {threadId, message} = req.body;
 
     // Step 1 -> Validate
     if(!threadId || !message) {
-        res.status(400).json({error: "Missing required fields"});
+       return res.status(400).json({error: "Missing required fields"});
     }
     
     try {
