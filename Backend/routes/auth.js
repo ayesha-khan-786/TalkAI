@@ -51,7 +51,7 @@ router.post("/login", async (req, res) => {
                 return res.status(400).json({ message: "Invalid password "});
             }
 
-            console.log("JWT Secrete is Login:", process.env.JWT_SECRET);
+            //console.log("JWT Secrete is Login:", process.env.JWT_SECRET);
 
         // 3. Generate JWT token
         const token = jwt.sign(
