@@ -14,7 +14,7 @@ const authMiddleware = async (req, res, next) =>
 
         const token = authHeader.split(" ")[1];
 
-        console.log("JWT Secret in MIddleware:", process.env.JWT_SECRET);
+       // console.log("JWT Secret in MIddleware:", process.env.JWT_SECRET);
 
         if(!token) {
             return res.status(401).json({ message: "Token missing" });
