@@ -14,6 +14,7 @@ function App() {
   const [prevChats, setPrevChats] = useState([]);   // stores all chats of curr threads
   const [newChat, setNewChat] = useState(true);     // true bcoz always start with new chat
   const [allThreads, setAllThreads] = useState([]);   // store prev chats
+  const [showLoginModal, setShowLoginModal] = useState(false);
 
   // Passing values
   const providerValues = {

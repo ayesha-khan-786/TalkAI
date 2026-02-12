@@ -3,22 +3,28 @@ import Chat from "./Chat.jsx";
 import { MyContext } from "./MyContext.jsx";
 import { useContext, useState, useEffect } from "react";
 import {PropagateLoader} from "react-spinners";
+import Login from "./Login.jsx";
+import API from "./api/axios";
 
 function ChatWindow() {
 
     const {prompt, setPrompt, reply, setReply, currThreadId, prevChats, setPrevChats, setNewChat} = useContext(MyContext);
     const [loading, setLoading] = useState(false);
     const [isOpen, setIsOpen] = useState(false);        // User-dropdown
+    const [showLoginModal, setShowLoginModal] = useState(false);
 
     const getReply = async () => {
         setLoading(true);
         setNewChat(false);
 
+        const token = localStorage.getItem("token");
+
         console.log("message", prompt, " threadId ", currThreadId);
         const options = {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
             },
             body: JSON.stringify({
                 message: prompt,
@@ -57,7 +63,28 @@ function ChatWindow() {
     const handleProfileClick = () => {
         setIsOpen(!isOpen);
     }
+
+    const handleOpenLogin = () => {
+        setShowLoginModal(true);
+    }
    
+    const handleCloseLogin = () => {
+        setShowLoginModal(false);
+    }
+
+    const handleLogout = () => {
+    localStorage.removeItem("token");
+
+    // clear all chat data
+    setPrevChats([]);
+    setReply(null);
+    setPrompt("");
+    setNewChat(true);
+
+    //reload page
+    window.location.reload();
+};
+
     return ( 
         <div className="chatWindow">
             <div className="navbar">
@@ -71,12 +98,34 @@ function ChatWindow() {
             {
                 isOpen &&
                 <div className="dropDown">
-                    <div className="dropDownItem"><i class="fa-solid fa-cloud-arrow-up"></i> Upgrade Plan</div>
-                    <div className="dropDownItem"><i class="fa-solid fa-gear"></i> Settings</div>
-                    <div className="dropDownItem"><i class="fa-solid fa-arrow-right-from-bracket"></i> Log Out</div>
+                    <div className="dropDownItem"><i className="fa-solid fa-cloud-arrow-up"></i> Upgrade Plan</div>
+                    <div className="dropDownItem"><i className="fa-solid fa-gear"></i> Settings</div>
+                    <div className="dropDownItem"
+                        onClick={handleOpenLogin}
+                    ><i className="fa-solid fa-arrow-right-from-bracket"></i> Log In</div>
+                    <div className="dropDownItem"
+                        onClick={handleLogout}
+                    ><i className="fa-solid fa-arrow-right-from-bracket"></i> Log Out</div>
                 </div>
             }
-            
+
+            {
+                showLoginModal && (
+                    <div className="modal-overlay" onClick={handleCloseLogin}>
+                        <div className="modal-content"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                        <button className="close-btn"
+                            onClick={handleCloseLogin}
+                        >
+                             ✕
+                        </button>
+                        <Login onClose={handleCloseLogin} />
+                    </div>
+                </div>
+            )
+        }
+
             <Chat></Chat>
 
             <PropagateLoader color="#359e9dff" loading={loading}>
