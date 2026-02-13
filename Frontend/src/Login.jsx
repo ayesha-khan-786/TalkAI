@@ -5,6 +5,8 @@ import "./Login.css";
 function Login({ onClose, switchToRegister }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -18,13 +20,16 @@ function Login({ onClose, switchToRegister }) {
       // Save Token
       localStorage.setItem("token", res.data.token);
 
-      if (onClose) onClose();
-
-      alert("Login Successful");
-      window.location.reload();
+      setMessage("✅ Login successful!");
+      setError("");
+  
+      // Close modal after short delay (optional)
+        setTimeout(() => {
+        if (onClose) onClose();
+      }, 1000);
     } catch (err) {
-      console.log(err.response?.data);
-      alert("Login Failed!");
+        setError(err.response?.data?.message || "Invalid email or password");
+        setMessage("");
     }
   };
 

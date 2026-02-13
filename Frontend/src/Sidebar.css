@@ -39,6 +39,24 @@ button:hover {
     margin: 10px;
     padding: 10px;
     height: 100%;
+    flex: 1;          
+    overflow-y: auto;   
+}
+
+/* Scrollbar width */
+.history::-webkit-scrollbar {
+    width: 6px;
+}
+
+/* Scrollbar track */
+.history::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Scrollbar thumb */
+.history::-webkit-scrollbar-thumb {
+    background-color: #323232;
+    border-radius: 10px;
 }
 
 .history li {
@@ -88,4 +106,47 @@ button:hover {
 .highlighted {
     background-color: rgba(180, 180, 180, 0.05);
     border-radius: 10px;
+}/* Hide menu button on desktop */
+.menu-btn {
+  display: none;
 }
+
+/* Mobile version */
+@media (max-width: 768px) {
+
+  .sidebar {
+    position: fixed;
+    left: -100%;
+    top: 0;
+    width: 260px;
+    height: 100vh;
+    transition: left 0.3s ease;
+    z-index: 1000;
+  }
+
+  .sidebar.active {
+    left: 0;
+  }
+
+  .menu-btn {
+    display: block;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    font-size: 24px;
+    background: none;
+    border: none;
+    color: white;
+    z-index: 1100;
+  }
+
+  .close-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    text-align: right;
+  }
+}
+
+

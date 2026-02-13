@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { MyContext } from "./MyContext.jsx";
 import { v1 as uuidv1 } from "uuid";
 
-function Sidebar() {
+function Sidebar({ isOpen, setIsOpen }) {
   const {
     allThreads,
     setAllThreads,
@@ -107,7 +107,11 @@ function Sidebar() {
   };
 
   return (
-    <section className="sidebar">
+    <section className={`sidebar ${isOpen ? "active" : ""}`}>
+      <button className="close-btn" onClick={() => setIsOpen(false)}>
+        ✖
+      </button>
+
       {/* new chat button */}
       <button onClick={createNewChat}>
         <img
