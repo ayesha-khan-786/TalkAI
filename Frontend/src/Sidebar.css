@@ -111,6 +111,12 @@ button:hover {
   display: none;
 }
 
+/* Hide close button on desktop */
+.close-btn {
+  display: none;
+}
+
+
 /* Mobile version */
 @media (max-width: 768px) {
 
@@ -133,18 +139,20 @@ button:hover {
     position: fixed;
     top: 15px;
     left: 15px;
-    font-size: 24px;
+    font-size: 18px;
     background: none;
     border: none;
     color: white;
     z-index: 1100;
   }
 
-  .close-btn {
+   .close-btn {
+    display: block;
     background: none;
     border: none;
     color: white;
-    font-size: 20px;
+    font-size: 14px;
+    margin: 10px;
     text-align: right;
   }
 }
