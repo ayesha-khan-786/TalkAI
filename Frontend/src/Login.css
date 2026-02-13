@@ -66,3 +66,14 @@
     box-shadow: 0 8px 20px rgba(59, 180, 173, 0.5);
 }
 
+.switch-text {
+    margin-top: 15px;
+    font-size: 14px;
+    text-align: center;
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.switch-text:hover {
+    color: #3bb4ad;
+}
