@@ -35,9 +35,11 @@ function App() {
   return (
     <div className="app">
       <MyContext.Provider value={providerValues}>
-        <button className="menu-btn" onClick={() => setIsSidebarOpen(true)}>
-          ☰
-        </button>
+        {!isSidebarOpen && (
+          <button className="menu-btn" onClick={() => setIsSidebarOpen(true)}>
+            ☰
+          </button>
+        )}
 
         <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
 
