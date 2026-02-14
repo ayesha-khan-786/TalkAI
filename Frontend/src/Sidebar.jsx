@@ -115,7 +115,7 @@ function Sidebar({ isOpen, setIsOpen }) {
       {/* new chat button */}
       <button onClick={createNewChat}>
         <img
-          src="/abstract.png"
+          src="/logo4.png"
           alt="talkAi logo"
           className="logo"
         ></img>
