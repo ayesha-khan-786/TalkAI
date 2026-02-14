@@ -2,6 +2,7 @@ import "./Sidebar.css";
 import { useContext, useEffect, useState } from "react";
 import { MyContext } from "./MyContext.jsx";
 import { v1 as uuidv1 } from "uuid";
+import logo from "./assets/logo4.png";
 
 function Sidebar({ isOpen, setIsOpen }) {
   const {
