@@ -19,7 +19,7 @@ function Sidebar({ isOpen, setIsOpen }) {
     try {
       const token = localStorage.getItem("token");
 
-      const response = await fetch("http://localhost:8080/api/thread", {
+      const response = await fetch("https://talkai-backend-nxok.onrender.com/api/thread", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -58,7 +58,7 @@ function Sidebar({ isOpen, setIsOpen }) {
       const token = localStorage.getItem("token");
 
       const response = await fetch(
-        `http://localhost:8080/api/thread/${newThreadId}`,
+        `https://talkai-backend-nxok.onrender.com/api/thread/${newThreadId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -81,7 +81,7 @@ function Sidebar({ isOpen, setIsOpen }) {
       const token = localStorage.getItem("token");
 
       const response = await fetch(
-        `http://localhost:8080/api/thread/${threadId}`,
+        `https://talkai-backend-nxok.onrender.com/api/thread/${threadId}`,
         {
           method: "DELETE",
           headers: {
